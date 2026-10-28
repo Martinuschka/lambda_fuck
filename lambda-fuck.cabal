@@ -1,0 +1,33 @@
+cabal-version: 2.4
+name:          lambda-fuck
+version:       0.1.0.0
+build-type:    Simple
+license:       BSD-3-Clause
+author:        Martinuschka
+maintainer:    martin@example.com
+category:      Compilers/Interpreters
+synopsis:      Brainfuck interpreter
+description:   A tiny Brainfuck interpreter written in Haskell.
+
+library
+  hs-source-dirs: src
+  exposed-modules: Brainfuck
+  build-depends: base >=4.14 && <5,
+                 containers >=0.6 && <0.8
+  default-language: Haskell2010
+
+executable bf
+  main-is: Main.hs
+  hs-source-dirs: app
+  build-depends: base >=4.14 && <5,
+                 lambda-fuck
+  default-language: Haskell2010
+
+test-suite lambda-fuck-tests
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  hs-source-dirs: test
+  build-depends: base >=4.14 && <5,
+                 HUnit,
+                 lambda-fuck
+  default-language: Haskell2010
