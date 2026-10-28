@@ -5,6 +5,7 @@ module Brainfuck
   ) where
 
 import Data.Char (chr, ord)
+import Data.Word (Word8)
 import qualified Data.Map.Strict as M
 
 newtype BrainfuckError = BrainfuckError String
