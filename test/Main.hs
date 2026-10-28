@@ -1,48 +1,18 @@
 module Main (main) where
 
 import Brainfuck (BrainfuckError(..), runText)
-import Data.Char (ord)
-import System.Environment (getArgs)
-import System.Exit (exitFailure)
-import System.IO (hPutStrLn, stderr)
+import Test.HUnit
 
-usage :: String
-usage = unlines
-  [ "Usage:"
-  , "  bf run <file> [input]"
-  , "  bf eval <program> [input]"
-  , "  bf --help"
-  ]
-
-runFile :: FilePath -> String -> IO ()
-runFile path input = do
-  source <- readFile path
-  case runText source input of
-    Left (BrainfuckError err) -> do
-      hPutStrLn stderr err
-      exitFailure
-    Right output -> putStr output
-
-runProgram :: String -> String -> IO ()
-runProgram source input =
-  case runText source input of
-    Left (BrainfuckError err) -> do
-      hPutStrLn stderr err
-      exitFailure
-    Right output -> putStr output
+simpleTests :: Test
+simpleTests =
+  TestList
+    [ TestCase (assertEqual "single output byte" (Right [toEnum 1]) (runText "+." ""))
+    , TestCase (assertEqual "unmatched opening bracket" (Left (BrainfuckError "Unmatched '[' in Brainfuck source.")) (runText "[" ""))
+    ]
 
 main :: IO ()
 main = do
-  args <- getArgs
-  case args of
-    ["--help"] -> putStrLn usage
-    ["run", file] -> runFile file ""
-    ["run", file, input] -> runFile file input
-    ["eval", source] -> runProgram source ""
-    ["eval", source, input] -> runProgram source input
-    [] -> do
-      putStrLn usage
-      exitFailure
-    _ -> do
-      putStrLn usage
-      exitFailure
+  counts <- runTestTT simpleTests
+  if failures counts == 0 && errors counts == 0
+    then pure ()
+    else fail "Brainfuck tests failed"
