@@ -16,7 +16,7 @@ main = do
   counts <- runTestTT
     (TestList
       [ simpleTests
-      , TestCase (assertEqual "hello file works" (Right "Hello World!") (runText helloWorldSource ""))
+      , TestCase (assertEqual "hello file works" (Right "Hello World!\n") (runText helloWorldSource ""))
       ])
   if failures counts == 0 && errors counts == 0
     then pure ()
