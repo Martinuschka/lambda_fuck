@@ -12,7 +12,12 @@ simpleTests =
 
 main :: IO ()
 main = do
-  counts <- runTestTT simpleTests
+  helloWorldSource <- readFile "example/hello.bf"
+  counts <- runTestTT
+    (TestList
+      [ simpleTests
+      , TestCase (assertEqual "hello file works" (Right "Hello World!") (runText helloWorldSource ""))
+      ])
   if failures counts == 0 && errors counts == 0
     then pure ()
     else fail "Brainfuck tests failed"
