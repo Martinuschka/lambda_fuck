@@ -119,7 +119,10 @@ interpret program input =
               let next = runtime { runtimePc = runtimePc runtime + 1 }
                in go next
 
+sanitizeProgram :: String -> String
+sanitizeProgram = filter (`elem` "+-.,[]<>#")
+
 runText :: String -> String -> Either BrainfuckError String
 runText program input =
-  interpret program (map (fromIntegral . ord) input)
+  interpret (sanitizeProgram program) (map (fromIntegral . ord) input)
     >>= \output -> Right (map (chr . fromIntegral) output)
