@@ -2,6 +2,7 @@ module Brainfuck
   ( BrainfuckError(..)
   , interpret
   , runText
+  , textToBrainfuck
   ) where
 
 import Data.Char (chr, ord)
@@ -126,3 +127,16 @@ runText :: String -> String -> Either BrainfuckError String
 runText program input =
   interpret (sanitizeProgram program) (map (fromIntegral . ord) input)
     >>= \output -> Right (map (chr . fromIntegral) output)
+
+-- | Generate Brainfuck that writes the supplied byte-valued characters.
+-- Each character is encoded by changing the current cell from its previous
+-- value using the shorter direction around the wrapping 8-bit cell, then '.'.
+textToBrainfuck :: String -> String
+textToBrainfuck = snd . foldl encodeChar (0, "")
+  where
+    encodeChar (previous, program) char =
+      let target = ord char `mod` 256
+          up = (target - previous) `mod` 256
+          down = (previous - target) `mod` 256
+          change = if up <= down then replicate up '+' else replicate down '-'
+       in (target, program ++ change ++ ".")

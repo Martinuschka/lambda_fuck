@@ -1,6 +1,6 @@
 module Main where
 
-import Brainfuck (BrainfuckError(..), runText)
+import Brainfuck (BrainfuckError(..), runText, textToBrainfuck)
 import System.Environment (getArgs)
 import System.Exit (exitFailure)
 import System.IO (hPutStrLn, stderr)
@@ -10,6 +10,7 @@ usage = unlines
   [ "Usage:"
   , "  bf run <file> [input]"
   , "  bf eval <program> [input]"
+  , "  bf brain <text>"
   , "  bf --help"
   ]
 
@@ -39,6 +40,7 @@ main = do
     ["run", file, input] -> runFile file input
     ["eval", source] -> runProgram source ""
     ["eval", source, input] -> runProgram source input
+    ["brain", text] -> putStrLn (textToBrainfuck text)
     [] -> do
       putStrLn usage
       exitFailure
