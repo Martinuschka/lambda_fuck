@@ -1,51 +1,51 @@
 # lambda-fuck
 
-Ein kleines Haskell-Projekt mit Cabal für einen Brainfuck-Interpreter.
+A small Haskell project using Cabal for a Brainfuck interpreter.
 
-## Überblick
+## Overview
 
-Das Projekt enthält einen einfachen, aber funktionalen Brainfuck-Interpreter mit:
+The project contains a simple but functional Brainfuck interpreter with:
 
-- einem reinen Laufzeitzustand aus Zeiger, Band und Programmzähler
-- einer Vorberechnung der Schleifen-Positionen mit `Map`
-- einer CLI mit `bf run <datei>` und `bf eval <programm>`
-- einer kleinen Test-Suite für Grundfunktionalität
+- a pure runtime state consisting of a pointer, tape, and program counter
+- precomputed loop positions using `Map`
+- a CLI with `bf run <file>` and `bf eval <program>`
+- a small test suite for basic functionality
 
-## Verwendung
+## Usage
 
 ```bash
 cabal build
 cabal run bf -- run example/hello.bf
 ```
 
-Oder direkt mit einem eingebetteten Programm:
+Or directly with an embedded program:
 
 ```bash
 cabal run bf -- eval "+.+."
 ```
 
-## Beispiel
+## Example
 
 ```brainfuck
 ++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
 ```
 
-Das erzeugt die Ausgabe:
+This produces the output:
 
 ```text
 Hello World!
 ```
 
-## Projektstruktur
+## Project Structure
 
-- `src/Brainfuck.hs` – Interpreter-Logik
-- `app/Main.hs` – Kommandozeilen-Interface
-- `test/Main.hs` – Kleiner Test-Satz
-- `example/hello.bf` – Hello-World-Beispiel
+- `src/Brainfuck.hs` – Interpreter logic
+- `app/Main.hs` – Command-line interface
+- `test/Main.hs` – Small test suite
+- `example/hello.bf` – Hello World example
 
-## Ideen für Erweiterungen
+## Ideas for Extensions
 
-- `#`-Debug-Befehl für die Ausgabe des aktuellen Bands
-- Optimierung der Schleifen mit einer Jump-Map oder einem Baum
-- Unterstützung für mehr Eingabe- und Ausgabe-Formate
-- Mehr Tests mit Mandelbrot/Quine/Brainfuck-Katas
+- `#` debug command to print the current tape
+- Optimize loops using a jump map or tree
+- Support for more input and output formats
+- More tests with Mandelbrot, quines, and Brainfuck katas
