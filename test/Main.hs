@@ -10,7 +10,7 @@ simpleTests =
     , TestCase (assertEqual "unmatched opening bracket" (Left (BrainfuckError "Unmatched '[' in Brainfuck source.")) (runText "[" ""))
     , TestCase (assertEqual "empty text encodes to empty program" "" (textToBrainfuck ""))
     , TestCase (assertEqual "generated program reproduces text" (Right "Hello, Brainfuck!") (runText (textToBrainfuck "Hello, Brainfuck!") ""))
-    , TestCase (assertEqual "generated program handles byte wraparound" (Right [toEnum 255, 0, 1]) (runText (textToBrainfuck (map toEnum [255, 0, 1])) ""))
+    , TestCase (assertEqual "generated program handles byte wraparound" (Right [toEnum 255, toEnum 0, toEnum 1]) (runText (textToBrainfuck (map toEnum [255, 0, 1])) ""))
     ]
 
 main :: IO ()
