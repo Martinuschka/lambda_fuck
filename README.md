@@ -8,6 +8,8 @@ The project contains a simple Brainfuck interpreter with a pure runtime state, p
 
 ## Usage
 
+Run a Brainfuck program file (*.bf):
+
 ```bash
 cabal build
 cabal run bf -- run examples/hello.bf
@@ -26,6 +28,16 @@ cabal run bf -- brain "Hello, world!"
 ```
 
 ## Examples
+
+```brainfuck
+++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+```
+
+This produces the output:
+
+```text
+Hello World!
+```
 
 See [`examples/README.md`](examples/README.md) for the runnable example programs and their expected input/output behavior.
 
